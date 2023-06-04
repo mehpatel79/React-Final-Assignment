@@ -31,8 +31,10 @@ async function getUsersData() {
 }
     return (
             <>
+            <center>
             {loadingUserData? (<center>Loading...</center>):(
-                <ul>
+                    <>
+                    <h2>List of Users </h2>
                     <table border={"1px solid black"}>
                         <thead>
                         <tr>
@@ -49,9 +51,14 @@ async function getUsersData() {
                             )}
                         </tbody>
                     </table>
-                </ul>
+                    </>
             )}
-            {apiError && (<p>Error: {apiError} </p>)}
+            <br />
+            {apiError && (<p><b>Error :</b>&nbsp; {apiError} </p>)}
+            <hr />
+            <br />
+            {<h3>For Addition of new User click to : <a href="/AddUser">Add User</a></h3>}
+            </center>
             </>
     );
 };
