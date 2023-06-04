@@ -8,7 +8,7 @@ import {
         } from './todosSlice';
 import styles from './Todos.module.css';
 
-export function Todos() {
+const Todos = () => {
   
                             const todoSlice =  useSelector(selectTodo);
                             const inputSlice = useSelector(selectInput);
@@ -104,4 +104,6 @@ export function Todos() {
               </center>
               </>
             );
-      }
+      };
+
+export default Todos;
