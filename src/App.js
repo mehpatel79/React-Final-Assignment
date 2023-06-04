@@ -1,7 +1,7 @@
 import React from 'react';
 import Todos from "./features/todos/Todos";
 import Users from "./features/users/Users";
-// import AddUser from "./features/AddUser/AddUser";
+import AddUser from "./features/adduser/AddUser";
 import './App.css';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -22,9 +22,7 @@ function App() {
                               <Route exact path="/">    <Redirect to = "/Todos" />   </Route>
                               <Route path="/Todos">     <Todos />                    </Route>
                               <Route path="/Users">     <Users />                    </Route>
-                              {/*
                               <Route path="/AddUser">   <AddUser />                  </Route>
-                              */}
                           </Switch>
                         </Router>
                         );
