@@ -2,13 +2,12 @@ import { useEffect } from "react";
 import { API } from "../../apiService";
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserData, addUserData, inputRequest, selectInputData, fetchUsers, fetchUserRequest } from "../adduser/addUserSlice";
+import { selectUserData, fetchUserRequest } from "../adduser/addUserSlice";
 
 
 
 const Users = () => {
 
-    const [userData, setUserData] = useState([]);
     const [apiError, setApiError] = useState("");
     const [loadingUserData, setLoadingUserData] = useState(false);
     const userDataSlice =  useSelector(selectUserData);
@@ -33,7 +32,6 @@ async function getUsersData() {
     }
     catch(error){
         setLoadingUserData(false);
-        setUserData([]);
         setApiError(error.message);
     }
 

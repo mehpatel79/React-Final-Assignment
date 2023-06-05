@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserData, addUserData, inputRequest, selectInputData, selectActiveTab } from "./addUserSlice";
+import { addUserData, inputRequest, selectInputData, selectActiveTab } from "./addUserSlice";
 import styles from './AddUser.module.css';
 import { API } from "../../apiService";
 import Users from "../users/Users";
@@ -8,7 +8,6 @@ import { useState } from 'react';
 const AddUser = () => {
 
 
-  const userDataSlice =  useSelector(selectUserData);
   const inputSlice = useSelector(selectInputData);
   const activeTabSlice = useSelector(selectActiveTab);
   const [apiError, setApiError] = useState("");
@@ -65,8 +64,9 @@ const AddUser = () => {
             
             <hr />
             <br />
-            {apiError && (<p><b>Error :</b>&nbsp; {apiError} </p>)}*/
-                        }
+                        */}
+            {apiError && (<p><b>Error :</b>&nbsp; {apiError} </p>)}
+                        
             </center>
             </>
     );

@@ -4,16 +4,18 @@ import { API } from "../../apiService";
 const initialState = {
                         counter : 10,
                         userData : [],
+                        inputUser : [],
                         inputData : "",
                         activeTab: true,
                         
                       };
 
+/*
 export const fetchUsers = createAsyncThunk("fetchData", async () => {
   const response = await API.getUsers();
   return response.data
-
 })
+*/
 
 export const addUserSlice = createSlice({
       name: 'addUser',
@@ -25,7 +27,7 @@ export const addUserSlice = createSlice({
                   },
 
                   fetchUserRequest : (state, action) => {
-                      state.userData = [...action.payload, ...state.userData];
+                      state.userData = [...action.payload, ...state.inputUser];
                 
                   },
 
@@ -35,36 +37,26 @@ export const addUserSlice = createSlice({
                    
                                         else {  
                                           state.counter = state.counter + 1;
-                                          if(state.userData.length < 10){
-                                                state.userData = [...action.payload, ...state.userData,
-                                                                          {id: state.counter, name: state.inputData}
-                                                                  ]
-                                                }
-                                          else {
-                                            console.log("before", state.userData);
-                                                state.userData = [...state.userData,
+                                          //console.log("before", state.inputUser);
+                                            state.inputUser = [...state.inputUser, 
                                                                   {id: state.counter, name: state.inputData}
                                                                 ]
-                                                }
-
+                                         // console.log("after",state.inputUser);
                                                 state.activeTab = false;
-                                                console.log("after",state.userData);
+                                                state.userData = [...state.userData, ...state.inputUser];
                                                 state.inputData = "";
                                               }
                                           },
-                  default : (state) => {
-                          state.userData = [...state.userData, fetchUsers]
-                    
-                  },
-
+                  
                                         },
-
+/*
                       extraReducers(builder) {
                         builder.addCase(fetchUsers, (state, action) => {
                           state.userData = [...state.userData, ...action.payload]
                             
                })
                       },
+                      */
                 
       });
 
