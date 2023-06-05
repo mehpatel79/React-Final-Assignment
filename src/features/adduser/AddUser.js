@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserData, addUserData, inputRequest, selectInputData } from "./addUserSlice";
+import { selectUserData, addUserData, inputRequest, selectInputData, selectActiveTab } from "./addUserSlice";
 import styles from './AddUser.module.css';
 import { API } from "../../apiService";
+import Users from "../users/Users";
 import { useState } from 'react';
 
 const AddUser = () => {
@@ -9,31 +10,39 @@ const AddUser = () => {
 
   const userDataSlice =  useSelector(selectUserData);
   const inputSlice = useSelector(selectInputData);
+  const activeTabSlice = useSelector(selectActiveTab);
   const [apiError, setApiError] = useState("");
 
     const dispatch = useDispatch();
         
     async function getUsersData() {
     
-        try{
-            const response = await API.getUsers();
-            dispatch(addUserData(response.data));
-            }
-        catch(error){
-            setApiError(error.message);
-        }
-    }
+      try{
+          const response = await API.getUsers();
+          dispatch(addUserData(response.data));
+          }
+      catch(error){
+          setApiError(error.message);
+      }
+  }
+
+
 
     return (
             <>
             <center>
+            {activeTabSlice?(<>
             <input  className={styles.textbox} 
                         aria-label="Enter New User" 
                         value={inputSlice} 
                         onChange={(e) => dispatch(inputRequest(e.target.value))} />
     
                       <button className={styles.button} onClick={() => getUsersData()}>Add User</button>
+                      </>)
+            :
 
+         <Users />}
+            {/*
                     <h2>List of Users </h2>
                     <table border={"1px solid black"}>
                         <thead>
@@ -56,7 +65,8 @@ const AddUser = () => {
             
             <hr />
             <br />
-            {apiError && (<p><b>Error :</b>&nbsp; {apiError} </p>)}
+            {apiError && (<p><b>Error :</b>&nbsp; {apiError} </p>)}*/
+                        }
             </center>
             </>
     );

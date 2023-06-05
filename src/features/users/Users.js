@@ -1,12 +1,20 @@
 import { useEffect } from "react";
 import { API } from "../../apiService";
 import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserData, addUserData, inputRequest, selectInputData, fetchUsers, fetchUserRequest } from "../adduser/addUserSlice";
+
+
 
 const Users = () => {
 
     const [userData, setUserData] = useState([]);
     const [apiError, setApiError] = useState("");
     const [loadingUserData, setLoadingUserData] = useState(false);
+    const userDataSlice =  useSelector(selectUserData);
+
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         getUsersData();
@@ -19,7 +27,8 @@ async function getUsersData() {
         setLoadingUserData(true);
         setApiError("");
         const response = await API.getUsers();
-        setUserData(response.data);
+        if(userDataSlice.length < 10) {
+        dispatch(fetchUserRequest(response.data))};
         setLoadingUserData(false);        
     }
     catch(error){
@@ -43,7 +52,7 @@ async function getUsersData() {
                         </tr>
                         </thead>
                         <tbody>
-                        {userData.map((user) =>
+                        {userDataSlice.map((user) =>
                             <tr key={user.id} >
                             <td style={{padding:"5px"}}>{user.id}</td>
                             <td style={{padding:"5px"}}>{user.name}</td>
