@@ -2,11 +2,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addUserData, inputRequest, selectInputData, selectActiveTab } from "./addUserSlice";
 import styles from './AddUser.module.css';
 import { API } from "../../apiService";
-import Users from "../users/Users";
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
+const RedirectPage = () => {
+  const history = useHistory();
+  history.push("/Users"); 
+};
+
+  
 const AddUser = () => {
-
 
   const inputSlice = useSelector(selectInputData);
   const activeTabSlice = useSelector(selectActiveTab);
@@ -40,31 +45,7 @@ const AddUser = () => {
                       </>)
             :
 
-         <Users />}
-            {/*
-                    <h2>List of Users </h2>
-                    <table border={"1px solid black"}>
-                        <thead>
-                        <tr>
-                        <th style={{padding:"5px"}}>ID</th>
-                        <th style={{padding:"5px"}}>NAME</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {userDataSlice.map((user) =>
-                            <tr key={user.id} >
-                            <td style={{padding:"5px"}}>{user.id}</td>
-                            <td style={{padding:"5px"}}>{user.name}</td>
-                            </tr>
-                            )}
-                        </tbody>
-                    </table>
-                    
-
-            
-            <hr />
-            <br />
-                        */}
+            RedirectPage()}
             {apiError && (<p><b>Error :</b>&nbsp; {apiError} </p>)}
                         
             </center>
